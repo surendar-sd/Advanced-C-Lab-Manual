@@ -13,11 +13,47 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#define SIZE 5
+
+int stack[SIZE];
+int top = -1;
+
+void push(int value) {
+    if (top == SIZE - 1)
+        printf("Stack Overflow\n");
+    else
+        stack[++top] = value;
+}
+
+void display() {
+    if (top == -1)
+        printf("Stack is empty\n");
+    else {
+        printf("Stack elements are:\n");
+        for (int i = top; i >= 0; i--)
+            printf("%d\n", stack[i]);
+    }
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    display();
+    return 0;
+}
+```
 
 Output:
 
-//paste your output here
+```
+Stack elements are:
+30
+20
+10
+```
 
 
 
@@ -35,13 +71,38 @@ Algorithm:
 4.	Call the push function as needed.
  
 Program:
+```
+#include <stdio.h>
+#define SIZE 5
 
-//type your code here
+float stack[SIZE];
+int top = -1;
+
+void push(float value) {
+    if (top == SIZE - 1)
+        printf("Stack Overflow\n");
+    else {
+        top++;
+        stack[top] = value;
+        printf("Inserted %.2f into stack\n", value);
+    }
+}
+
+int main() {
+    push(5.5);
+    push(10.2);
+    push(15.8);
+    return 0;
+}
+```
 
 Output:
 
-//paste your output here
-
+```
+Inserted 5.50 into stack
+Inserted 10.20 into stack
+Inserted 15.80 into stack
+```
 
 
 
@@ -62,12 +123,48 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#define SIZE 5
+
+int queue[SIZE];
+int front = -1, rear = -1;
+
+void enqueue(int value) {
+    if (rear == SIZE - 1)
+        printf("Queue Overflow\n");
+    else {
+        if (front == -1)
+            front = 0;
+        queue[++rear] = value;
+    }
+}
+
+void display() {
+    if (front == -1)
+        printf("Queue is empty\n");
+    else {
+        printf("Queue elements are:\n");
+        for (int i = front; i <= rear; i++)
+            printf("%d ", queue[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    display();
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
-
+```
+Queue elements are:
+10 20 30
+```
 
 Result:
 Thus, the program to display queue elements using array is verified successfully.
@@ -86,11 +183,39 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#define SIZE 5
+
+float queue[SIZE];
+int front = -1, rear = -1;
+
+void enqueue(float value) {
+    if (rear == SIZE - 1)
+        printf("Queue Overflow\n");
+    else {
+        if (front == -1)
+            front = 0;
+        queue[++rear] = value;
+        printf("Inserted %.2f into queue\n", value);
+    }
+}
+
+int main() {
+    enqueue(1.5);
+    enqueue(2.5);
+    enqueue(3.5);
+    return 0;
+}
+```
 
 Output:
 
-//paste your output here
+```
+Inserted 1.50 into queue
+Inserted 2.50 into queue
+Inserted 3.50 into queue
+```
 
 Result:
 Thus, the program to insert elements in queue using array is verified successfully.
@@ -120,12 +245,64 @@ o	After deletion, check if the front pointer has passed the rear pointer (front 
 
 
 Program:
+```
+#include <stdio.h>
+#define SIZE 5
 
-//type your code here
+int queue[SIZE];
+int front = -1, rear = -1;
 
+void enqueue(int value) {
+    if (rear == SIZE - 1)
+        printf("Queue Overflow\n");
+    else {
+        if (front == -1)
+            front = 0;
+        queue[++rear] = value;
+    }
+}
+
+void dequeue() {
+    if (front == -1)
+        printf("Queue is empty\n");
+    else {
+        printf("Deleted element: %d\n", queue[front]);
+        front++;
+        if (front > rear)
+            front = rear = -1;
+    }
+}
+
+void display() {
+    if (front == -1)
+        printf("Queue is empty\n");
+    else {
+        printf("Queue elements are:\n");
+        for (int i = front; i <= rear; i++)
+            printf("%d ", queue[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    display();
+    dequeue();
+    display();
+    return 0;
+}
+```
 Output:
 
-//paste your output here
+```
+Queue elements are:
+10 20 30
+Deleted element: 10
+Queue elements are:
+20 30
+```
 
 
 Result:
