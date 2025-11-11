@@ -15,19 +15,75 @@ Else
 6.	Return 0
  
 Program:
+ ```
+#include <stdio.h>
 
-//type your code here
+struct eligible {
+    char n[50];
+    int age;
+};
+
+int main() {
+    struct eligible e[100];
+    int n, i;
+
+    printf("Enter number of persons: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("\nEnter name: ");
+        scanf("%s", e[i].n);
+        printf("Enter age: ");
+        scanf("%d", &e[i].age);
+    }
+
+    printf("\n--- Vaccine Eligibility Check ---\n");
+    for (i = 0; i < n; i++) {
+        printf("\nName: %s", e[i].n);
+        printf("\nAge: %d", e[i].age);
+        if (e[i].age <= 6)
+            printf("\nVaccine Eligibility: No\n");
+        else
+            printf("\nVaccine Eligibility: Yes\n");
+    }
+
+    return 0;
+}
+```
 
 
 Output:
+```
+Enter number of persons: 3
 
-//paste your output here
+Enter name: Arjun
+Enter age: 5
+
+Enter name: Praveen
+Enter age: 12
+
+Enter name: Sneha
+Enter age: 8
+
+--- Vaccine Eligibility Check ---
+
+Name: Arjun
+Age: 5
+Vaccine Eligibility: No
+
+Name: Praveen
+Age: 12
+Vaccine Eligibility: Yes
+
+Name: Sneha
+Age: 8
+Vaccine Eligibility: Yes
 
 
 Result:
 Thus, the program is verified successfully. 
 
-
+```
 
 EXP NO:2 C PROGRAM FOR PASSING STRUCTURES AS FUNCTION ARGUMENTS AND RETURNING A STRUCTURE FROM A FUNCTION
 Aim:
@@ -44,7 +100,40 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+// Structure definition
+struct numbers {
+    int a, b, sum;
+};
+
+// Function declaration
+struct numbers add(struct numbers n);
+
+int main() {
+    struct numbers n1, result;
+
+    printf("Enter two numbers: ");
+    scanf("%d %d", &n1.a, &n1.b);
+
+    // Function call and storing returned structure
+    result = add(n1);
+
+    printf("\nSum of %d and %d is: %d\n", result.a, result.b, result.sum);
+
+    return 0;
+}
+
+// Function to add two numbers using structure
+struct numbers add(struct numbers n) {
+    struct numbers temp;
+    temp.a = n.a;
+    temp.b = n.b;
+    temp.sum = n.a + n.b;
+    return temp;
+}
+```
 
 
 
@@ -52,8 +141,11 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter two numbers: 10 25
 
+Sum of 10 and 25 is: 35
+```
 
 
 
@@ -86,7 +178,31 @@ Use scanf to input the file name into the name array.
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+int main() {
+    FILE *p;
+    char name[50];
+
+    printf("Enter the file name to create: ");
+    scanf("%s", name);
+
+    p = fopen(name, "w");  // open file in write mode
+
+    if (p == NULL) {
+        printf("Error! Unable to create file.\n");
+        return 1;
+    }
+
+    printf("File '%s' created and opened successfully.\n", name);
+
+    fclose(p);
+    printf("File '%s' closed successfully.\n", name);
+
+    return 0;
+}
+```
 
 
 
@@ -94,15 +210,13 @@ Program:
 Output:
 
 
-//paste your output here
 
 
-
-
-
-
-
-
+```
+Enter the file name to create: sample.txt
+File 'sample.txt' created and opened successfully.
+File 'sample.txt' closed successfully.
+```
 
 
 
@@ -133,15 +247,63 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+int main() {
+    FILE *p;
+    char name[50], text[100];
+    int num, i;
+
+    printf("Enter the file name to create: ");
+    scanf("%s", name);
+
+    printf("Enter the number of lines to write: ");
+    scanf("%d", &num);
+
+    p = fopen(name, "w");  // open file in write mode
+
+    if (p == NULL) {
+        printf("Error! Unable to create or open the file.\n");
+        return 1;
+    }
+
+    printf("\nFile '%s' opened successfully.\n", name);
+    printf("Enter %d lines of text:\n", num);
+
+    // Clear input buffer
+    getchar();
+
+    for (i = 0; i < num; i++) {
+        printf("Line %d: ", i + 1);
+        fgets(text, sizeof(text), stdin);
+        fputs(text, p);
+    }
+
+    fclose(p);
+    printf("\nData has been written to '%s' successfully.\n", name);
+
+    return 0;
+}
+```
 
 
 
 
 Output:
 
+```
+Enter the file name to create: notes.txt
+Enter the number of lines to write: 3
 
-//paste your output here
+File 'notes.txt' opened successfully.
+Enter 3 lines of text:
+Line 1: Vaccine eligibility program completed.
+Line 2: Structure experiment tested.
+Line 3: File handling successful.
+
+Data has been written to 'notes.txt' successfully.
+```
 
 
 
@@ -187,7 +349,51 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+struct student {
+    char name[50];
+    int marks;
+};
+
+int main() {
+    struct student *s;
+    int n, i;
+
+    printf("Enter the number of subjects: ");
+    scanf("%d", &n);
+
+    // Dynamically allocate memory
+    s = (struct student*)malloc(n * sizeof(struct student));
+
+    if (s == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Input student details
+    for (i = 0; i < n; i++) {
+        printf("\nEnter name of subject %d: ", i + 1);
+        scanf("%s", s[i].name);
+        printf("Enter marks for %s: ", s[i].name);
+        scanf("%d", &s[i].marks);
+    }
+
+    // Display student details
+    printf("\n--- Student Details ---\n");
+    for (i = 0; i < n; i++) {
+        printf("Subject %d: %s\n", i + 1, s[i].name);
+        printf("Marks: %d\n\n", s[i].marks);
+    }
+
+    // Free allocated memory
+    free(s);
+
+    return 0;
+}
+```
 
 
 
@@ -195,7 +401,28 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter the number of subjects: 3
+
+Enter name of subject 1: Maths
+Enter marks for Maths: 95
+
+Enter name of subject 2: Science
+Enter marks for Science: 88
+
+Enter name of subject 3: English
+Enter marks for English: 92
+
+--- Student Details ---
+Subject 1: Maths
+Marks: 95
+
+Subject 2: Science
+Marks: 88
+
+Subject 3: English
+Marks: 92
+```
 
 
 
